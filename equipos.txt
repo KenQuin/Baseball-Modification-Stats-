@@ -1,0 +1,143 @@
+ArizonaDiamondbacks
+ArizonaDiamondbacks
+Phoenix
+29 2 2015 2 10 2015
+63 86 189 94 30
+
+ArizonaDiamondbacks
+ArizonaDiamondbacks
+Phoenix
+4 4 2016 2 10 2016
+63 86 189 94 30
+
+Cangrejos
+Cangrejos
+SanJuan
+4 4 2016 2 10 2016
+0 40 -88 40 65
+
+AtlantaBraves
+AtlantaBraves
+Atlanta
+4 4 2016 2 10 2016
+58 91 158 25 7
+
+ChicagoCubs
+ChicagoCubs
+Chicago
+4 4 2016 2 10 2016
+94 55 71 141 27
+
+LeonesDePonce
+LeonesDePonce
+Ponce
+4 4 2016 2 10 2016
+-10 30 56 18 5
+
+GigantesDeCarolina
+GigantesDeCarolina
+Carolina
+10 30 2015 1 29 2016
+40 0 101 200 7
+
+CincinnatiReds
+CincinnatiReds
+Cincinnati
+4 4 2016 2 10 2016
+63 86 117 90 0
+
+Ch1cagoCubs
+Ch1cagoCubs
+Ch1cago
+4 4 2016 2 10 2016
+94 55 71 141 27
+
+ColoradoRockies
+ColoradoRockies
+Denver
+4 4 2016 2 10 2016
+72 77 42 44 4
+
+LosAngelesDodgers
+LosAngelesDodgers
+LosAngeles
+4 4 2016 2 10 2016
+81 63 110 78 17
+
+GigantesDeCarolina
+GigantesDeCarolina
+Carolina
+4 4 2016 2 10 2016
+40 0 101 -200 7
+
+CriollosDeCaguas
+CriollosDeCaguas
+Caguas
+4 4 2016 2 10 2016
+20 -20 101 120 10
+
+MilwaukeeBrewers
+MilwaukeeBrewers
+Milwaukee
+4 4 2016 2 10 2016
+68 82 58 46 2
+
+IndiosDeMayaguez
+IndiosDeMayaguez
+Mayaguez
+4 4 2016 2 10 2016
+25 25 71 145 -17
+
+NewYorkMets
+NewYorkMets
+Corona
+4 4 2016 2 10 2016
+80 69 103 110 2
+
+PittsburghPirates
+PittsburghPirates
+Pittsburgh
+4 4 2016 2 10 2016
+74 75 131 29 126
+
+CangrejosDeSanturce
+CangrejosDeSanturce
+SanJuan
+10 30 2015 1 29 2016
+0 40 88 40 65
+
+SanFranciscoGiants
+SanFranciscoGiants
+SanJuan
+4 4 2016 2 10 2016
+79 70 86 83 13
+
+StLouisCardinals
+StLouisCardinals
+StLouis
+4 4 2016 2 29 2016
+0 40 88 40 65
+
+StLouisCardinals
+StLouisCardinals
+StLouis
+4 4 2016 2 10 2016
+78 71 123 57 6
+
+WashingtonNationals
+WashingtonNationals
+Washington
+4 4 2016 2 10 2016
+88 61 43 8 45
+
+SanDiegoPadres
+SanDiegoPadres
+SanDiego
+4 4 2016 2 10 2016
+62 87 43 27 53
+
+MilwaukeeBrewers
+MilwaukeeBrewers
+Milwaukee
+2 10 2016 4 4 216
+68 82 58 46 3

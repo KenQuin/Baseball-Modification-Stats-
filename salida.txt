@@ -1,0 +1,18 @@
+Entrada incorrecta para los Hits, del equipo: 3
+Entrada incorrecta en las Victorias, del equipo: 6
+Entrada incorrecta para el Nombre 9
+Entrada incorrecta para el lugar 9
+Entrada incorrecta para las Carreras, del equipo: 12
+Entrada incorrecta en las derrotas, del equipo: 13
+Entrada incorrecta para los Errores, del equipo: 15
+El equipo: AtlantaBraves fue eliminado
+La palabra no se encuentra en la lista
+La palabra no se encuentra en la lista
+El equipo: SanDiegoPadres1 de SanDiego obtuvo los siguientes estadisticas: 
+
+62 Victorias.
+87 Derrotas
+43 Batazos
+27 Carreras
+53 Errores
+
