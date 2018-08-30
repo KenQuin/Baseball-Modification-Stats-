@@ -1,0 +1,830 @@
+#include <fstream>
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <climits>
+#include <string>
+#include <cstring>
+#include <cctype>
+#include <cassert>
+#define max 200
+using namespace std;
+
+
+////////////////////////////////////////////////
+// Estructura donde de guarda la fecha official
+
+struct Fecha
+{
+    int pdia, pmes, panio ;
+    int udia, umes, uanio;
+};
+
+/////////////////////////////
+// Clases donde se almacenan
+// Publicas las funciones
+// Privadas las variables
+
+class Equipo
+{
+public:
+    
+    Equipo();
+    ~Equipo();
+    
+    bool vali_nomb();
+    bool vali_lug();
+    bool vali_fechas1();
+    bool vali_fechas2();
+    bool vali_posneg();
+    
+    string getEquipo();
+    string getLugar();
+    
+    int getWin();
+    int getLose();
+    int getHit();
+    int getRbi();
+    int getErr();
+    
+    void setEquipo(string name);
+    void setLugar(string lug);
+    
+    void setWin(int w);
+    void setLose(int l);
+    void setHit(int h);
+    void setRbi(int c);
+    void setErr(int e);
+    
+    void friend camb_nom(Equipo who[]);
+    void friend camb_lug(Equipo who[]);
+    void friend camb_vic(Equipo who[]);
+    void friend camb_los(Equipo who[]);
+    void friend camb_hit(Equipo who[]);
+    void friend camb_rbi(Equipo who[]);
+    void friend camb_err(Equipo who[]);
+    
+    friend istream& operator >>(ifstream entrada, Equipo who[]);
+    void Entrada(Equipo who[]);
+    void Menu(Equipo who[]);
+    void Buscar(Equipo who[]);
+    void Agregar(Equipo who[]);
+    void Cambiar(Equipo who[]);
+    void Eliminar(Equipo who[]);
+    
+private:
+    
+    string nombre;
+    string lugar;
+    int win;
+    int lose;
+    int hit;
+    int rbi;
+    int err;
+};
+
+//////////////////
+// Arreglo Global
+
+
+string name;
+string lug;
+
+int d1, m1, a1;
+int d2, m2, a2;
+int w,l,h,r,e;
+int cant = 0;
+
+ifstream entrada;
+ofstream salida;
+
+int donde;
+int m =1;
+int i = 0;
+
+////////////////////////////////////
+// Creador por defecto y destructor
+
+Equipo::Equipo()
+{
+}
+
+Equipo::~Equipo()
+{
+}
+
+///////////////
+// Sets y Gets
+
+void Equipo::setEquipo(string name)
+{
+    nombre = name;
+}
+
+string Equipo::getEquipo()
+{
+    return nombre;
+}
+
+void Equipo::setLugar(string lug)
+{
+    lugar = lug;
+}
+
+string Equipo::getLugar()
+{
+    return lugar;
+}
+
+void Equipo::setWin(int w)
+{
+    win = w;
+}
+int Equipo::getWin()
+{
+    return win;
+}
+void Equipo::setLose(int l)
+{
+    lose = l;
+}
+int Equipo::getLose()
+{
+    return lose;
+}
+void Equipo::setHit(int h)
+{
+    hit = h;
+}
+int Equipo::getHit()
+{
+    return hit;
+}
+void Equipo::setRbi(int r)
+{
+    rbi = r;
+}
+int Equipo::getRbi()
+{
+    return rbi;
+}
+void Equipo::setErr(int e)
+{
+    err = e;
+}
+int Equipo::getErr()
+{
+    return err;
+}
+
+////////////////////////////////////////////////////////
+// Funciones donde cambian Nombres o Valores del Equipo
+
+
+void camb_nom(Equipo who[])
+{
+    
+    cout << "Agrege el nombre nuevo del equipo"<<endl;
+    cin >> name;
+    who[donde].setEquipo(name);
+}
+
+void camb_lug(Equipo who[])
+{
+    
+    cout << "Agrege el lugar nuevo del equipo"<<endl;
+    cin >> lug;
+    who[donde].setLugar(lug);
+}
+
+void camb_vic(Equipo who[])
+{
+    cout << "Agrege la cantidad de ganadas del equipo"<<endl;
+    cin >> w;
+    while(w < 0)
+    {
+        if(w <0)
+        {
+            cout << "Error. El numero no puede ser negativo"<<endl;
+        }
+        cout << "Agrege la cantidad de ganadas del equipo"<<endl;
+        cin >> w;
+    }
+    who[donde].setWin(w);
+    
+}
+
+void camb_los(Equipo who[])
+{
+    cout << "Agrege la cantidad de perdidas del equipo"<<endl;
+    cin >> l;
+    while(l < 0)
+    {
+        if(l <0)
+        {
+            cout << "Error. El numero no puede ser negativo"<<endl;
+        }
+        cout << "Agrege la cantidad de perdidas del equipo"<<endl;
+        cin >> l;
+    }
+    who[donde].setLose(l);
+    
+}
+
+void camb_hit(Equipo who[])
+{
+    cout << "Agrege la cantidad de hits del equipo"<<endl;
+    cin >> h;
+    while(h < 0)
+    {
+        if(h <0)
+        {
+            cout << "Error. El numero no puede ser negativo"<<endl;
+        }
+        cout << "Agrege la cantidad de hits del equipo"<<endl;
+        cin >> h;
+    }
+    who[donde].setHit(h);
+}
+
+void camb_rbi(Equipo who[])
+{
+    cout << "Agrege la cantidad de carreras del equipo"<<endl;
+    cin >> r;
+    while(r < 0)
+    {
+        if(r <0)
+        {
+            cout << "Error. El numero no puede ser negativo"<<endl;
+        }
+        cout << "Agrege la cantidad de carreras del equipo"<<endl;
+        cin >> r;
+    }
+    who[donde].setRbi(r);
+}
+
+void camb_err(Equipo who[])
+{
+    cout << "Agrege la cantidad de errores del equipo"<<endl;
+    cin >> e;
+    while(e < 0)
+    {
+        if(e <0)
+        {
+            cout << "Error. El numero no puede ser negativo"<<endl;
+        }
+        cout << "Agrege la cantidad de errores del equipo"<<endl;
+        cin >> e;
+    }
+    who[donde].setErr(e);
+    
+}
+
+///////////////////////////////////
+// Entrada donde se lee el archivo
+
+void Equipo::Entrada(Equipo who[])
+{
+    Fecha fec[max];
+    string done;
+    bool valid1, valid2, valid3, valid4, valid5;
+    
+    while (!entrada.eof())
+    {
+        
+        valid1 = true;
+        valid2 = true;
+        valid3 = true;
+        valid4 = true;
+        valid5 = true;
+        
+        getline(entrada, name);
+        getline(entrada, name);
+        getline(entrada, lug);
+        entrada >> d1 >> m1 >>  a1 >> d2 >> m2 >> a2;
+        entrada >> w >> l >> h >> r >> e;
+        entrada >> done;
+        
+        valid1 = vali_nomb();
+        valid2 = vali_lug();
+        valid3 = vali_fechas1();
+        valid4 = vali_fechas2();
+        valid5 = vali_posneg();
+        
+        who[i].setEquipo(name);
+        who[i].setLugar(lug);
+        who[i].setWin(w);
+        who[i].setLose(l);
+        who[i].setHit(h);
+        who[i].setRbi(r);
+        who[i].setErr(e);
+        
+        fec[i].pdia = d1;
+        fec[i].pmes= m1;
+        fec[i].panio= a1;
+        fec[i].udia= d2;
+        fec[i].umes= m2;
+        fec[i].uanio= a2;
+        
+        if(valid1==false || valid2==false || valid3==false || valid4==false || valid5==false)
+        {
+        }
+        else
+        {
+            i++;
+            cant++;
+        }
+        
+        m++;
+    }
+    
+    Menu(who);
+}
+
+/////////////////////////////////////////////////////////
+// boolianos donde se validan todos los valores y fechas
+
+bool Equipo::vali_fechas1()
+{
+    
+    bool bisiesto = false;
+    
+    if((a1% 4== 0 && a1 % 100!=100) || a1 % 400==0)
+    {
+        bisiesto = true;
+    }
+    if(d1 > 0 && d1 < 32 && m1 > 0 && m1 < 13 && a1 > 0)
+    {
+        if(m1==1 || m1==3 || m1==5 || m1==7 || m1==8 || m1==10 || m1==12)
+        {
+            return true;
+        }
+        else
+        {
+            if(m1==2 && d1<30 && bisiesto)
+            {
+                return true;
+            }
+            else if(m1==2 && d1<29 && !bisiesto)
+            {
+                return true;
+            }
+            else if(m1!=2 && d1<31)
+            {
+                return true;
+            }
+        }
+    }
+    cout << "Entrada incorrecta para las fechas en la pos: "<< m << endl;
+    return false;
+    
+}
+
+bool Equipo::vali_fechas2()
+{
+    
+    bool bisiesto = false;
+    
+    
+    if (a2 < a1)
+    {
+        cout << "Entrada incorrecta para las fechas en la pos "<< m << endl;
+        return false;
+        
+    }
+    else
+    {
+        if (m1> m2 && a2 == a1)
+        {
+            cout << "Entrada incorrecta para las fechas en la pos: "<< m << endl;
+            return false;
+        }
+        else if(d1 > d2 && a2 == a1 && m1 == m2)
+        {
+            cout << "Entrada incorrecta para las fechas en la pos: "<< m << endl;
+            return false;
+        }
+    }
+    
+    if((a2%4==0 && a2%100!=100) || a2%400==0)
+    {
+        bisiesto = true;
+    }
+    if(d2>0 && d2<32 && m2>0 && m2<13 && a2>0)
+    {
+        if(m2==1 || m2==3 || m2==5 || m2==7 || m2==8 || m2==10 || m2==12)
+        {
+            return true;
+        }
+        else
+        {
+            if(m2==2 && d2<30 && bisiesto)
+            {
+                return true;
+            }
+            else if(m2==2 && d2<29 && !bisiesto)
+            {
+                return true;
+            }
+            else if(m2!=2 && d2<31)
+            {
+                return true;
+            }
+        }
+    }
+    cout << "Entrada incorrecta para las fechas en la pos: "<< m << endl;
+    return false;
+    
+}
+
+bool Equipo::vali_posneg()
+{
+    
+    if (w < 0)
+    {
+        cout << "Entrada incorrecta en las Vicotrias, del equipo: " << m << endl;
+        salida << "Entrada incorrecta en las Victorias, del equipo: " << m << endl;
+        return false;
+    }
+    
+    if (l < 0)
+    {
+        cout << "Entrada incorrecta en las derrotas, del equipo: " << m << endl;
+        salida << "Entrada incorrecta en las derrotas, del equipo: " << m << endl;
+        return false;
+    }
+    
+    if (h < 0)
+    {
+        cout << "Entrada incorrecta para los Hits, del equipo: " << m << endl;
+        salida << "Entrada incorrecta para los Hits, del equipo: " << m << endl;
+        return false;
+    }
+    
+    if (r < 0)
+    {
+        cout << "Entrada incorrecta para las Carreras, del equipo: " << m << endl;
+        salida << "Entrada incorrecta para las Carreras, del equipo: " << m << endl;
+        return false;
+    }
+    
+    if (e <0)
+    {
+        cout << "Entrada incorrecta para los Errores, del equipo: " << m << endl;
+        salida << "Entrada incorrecta para los Errores, del equipo: " << m << endl;
+        return false;
+    }
+    
+    return (true);
+}
+
+
+bool Equipo::vali_nomb()
+{
+    int n = (name.length());
+    for (int k=0; k < n; k++)
+    {
+        if(!isalpha(name[k]) && !isspace(name[k]))
+        {
+            cout << "Entrada incorrecta para el Nombre "<< m << endl;
+            salida << "Entrada incorrecta para el Nombre "<< m << endl;
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool Equipo::vali_lug()
+{
+    int n = (lug.length());
+    for (int k=0; k< n; k++)
+    {
+        if(!isalpha(lug[k]) && !isspace(lug[k]))
+        {
+            cout << "Entrada incorrecta para el lugar "<< m << endl;
+            salida << "Entrada incorrecta para el lugar "<< m << endl;
+            return false;
+        }
+    }
+    return true;
+}
+
+
+////////
+// Menu
+
+void Equipo::Menu(Equipo who[])
+{
+    
+    int choice;
+    
+    cout << "\nBienvenidos\n"<<endl;
+    
+    do{
+        do {
+            cout << "MENU DE OPERACIONES" << endl << endl;
+            cout << "1: Buscar" << endl;
+            cout << "2: Eliminar" << endl;
+            cout << "3: Agregar" << endl;
+            cout << "4: Cambiar" << endl;
+            cout << "0: terminar corrida" << endl;
+            
+            cout << "Make your Choice: ";
+            cin >> choice;
+            
+            if (choice < 0 || choice > 5)
+            {
+                cout << "\nPORFAVOR SOMETER UNA ENTRADA VALIDA\n"<< endl;
+            }
+            
+            if (cin.fail())
+            {
+                cin.clear();
+                cin.ignore();
+                choice = 10;
+                
+                cout << "\nPORFAVOR SOMETER UNA ENTRADA VALIDA\n"<< endl;
+            }
+            
+            switch (choice)
+            {
+                case 1:
+                    Buscar(who);
+                    break;
+                case 2:
+                    Eliminar(who);
+                    break;
+                case 3:
+                    /*
+                    if (cant==SIZE){
+                        resize(whonew);
+                    }
+                    */
+                    Agregar(who);
+                    break;
+                case 4:
+                    Cambiar(who);
+                    break;
+            }
+            
+        }while (choice >5||choice<0);
+    }while(choice != 0);
+}
+
+//////////////////////////////////////////////////////////
+// Funcion donde se Busca si el Equipo esta en el arreglo
+
+void Equipo::Buscar(Equipo who[])
+{
+    string busqueda;
+    bool enco = false;
+    
+    cout << "Ingrese el equipo que desee Buscar"<< endl;
+    cin >> busqueda;
+    
+    for(int p=0; p < cant; p++)
+    {
+        if(who[p].getEquipo() == busqueda)
+        {
+            enco = true;
+            cout << "El equipo: " << who[p].getEquipo()  << " de " << who[p].getLugar() <<" obtuvo los siguientes estadisticas: " << endl << endl;
+            cout << who[p].getWin() <<" Victorias.\n"<< who[p].getLose() << " Derrotas\n"<< who[p].getHit()<<" Batazos\n"<< who[p].getRbi()<<" Carreras\n" << who[p].getErr() <<" Errores\n\n";
+            salida << "El equipo: " << who[p].getEquipo()  << " de " << who[p].getLugar() <<" obtuvo los siguientes estadisticas: " << endl << endl;
+            salida << who[p].getWin() <<" Victorias.\n"<< who[p].getLose() << " Derrotas\n"<< who[p].getHit()<<" Batazos\n"<< who[p].getRbi()<<" Carreras\n" << who[p].getErr() <<" Errores\n\n";
+        }
+    }
+    if(!enco)
+    {
+        cout << "La palabra no se encuentra en la lista"<< endl;
+        salida << "La palabra no se encuentra en la lista"<< endl;
+    }
+}
+
+
+////////////////////////////////////////
+// Funcion en donde se Agrega un Equipo
+// con sus respectivas estadisticas
+
+void Equipo::Agregar(Equipo who[])
+{
+    string busqueda;
+    bool enco = false;
+    cout << "Ingrese el equipo que desee Agregar"<< endl;
+    cin >> busqueda;
+    
+    for(int p=0; p< cant; p++)
+    {
+        if(who[p].getEquipo() == busqueda)
+        {
+            cout << "La palabra se encuentra en la lista"<< endl;
+            salida << "La palabra se encuentra en la lista"<< endl;
+            enco = true;
+        }
+    }
+    if(!enco)
+    {
+        name = busqueda;
+        who[cant].setEquipo(name);
+        
+        //validar el lugar
+        cout << "Agrege el lugar del equipo"<< endl<< endl;
+        cin >> lug;
+        who[cant].setLugar(lug);
+        
+        //validar las ganadas
+        cout << "Agrege la cantidad de ganadas del equipo"<< endl;
+        cin >> w;
+        while(w < 0)
+        {
+            cout << "Error. El numero no puede ser negativo"<< endl;
+            cin >> w;
+        }
+        who[cant].setWin(w);
+        
+        //validar las perdidas
+        cout << "Agrege la cantidad de perdidas del equipo"<< endl;
+        cin >> l;
+        while(l < 0)
+        {
+            cout << "Error. El numero no puede ser negativo"<< endl;
+            cin >> l;
+        }
+        who[cant].setLose(l);
+        
+        //validar hit
+        cout << "Agrege la cantidad de perdidas del equipo"<< endl;
+        cin >> h;
+        while(h < 0)
+        {
+            cout << "Error. El numero no puede ser negativo"<< endl;
+            cin >> h;
+        }
+        who[cant].setHit(h);
+        
+        //validar rbi
+        cout << "Agrege la cantidad de perdidas del equipo"<< endl;
+        cin >> r;
+        while(r < 0)
+        {
+            cout << "Error. El numero no puede ser negativo"<< endl;
+            cin >> r;
+        }
+        who[cant].setRbi(r);
+        
+        //validar err
+        cout << "Agrege la cantidad de perdidas del equipo"<< endl;
+        cin >> e;
+        while(e < 0)
+        {
+            cout << "Error. El numero no puede ser negativo"<< endl;
+            cin >> e;
+        }
+        who[cant].setErr(e);
+        
+    }
+    cant++;
+}
+
+//////////////////////////////////////////////////////////////////
+// Funcion donde se Cambian las estadisticas o Nombres del equipo
+
+
+void Equipo::Cambiar(Equipo who[])
+{
+    string busqueda;
+    bool enco = false;
+    
+    cout << "Ingrese el equipo que desee Buscar"<< endl;
+    cin >> busqueda;
+    
+    
+    
+    for(int p=0; p < cant; p++)
+    {
+        donde = p;
+        if(who[p].getEquipo() == busqueda)
+        {
+            enco = true;
+            int Choice;
+            
+            do
+            {
+                cout << "MENU DE OPERACIONES" << endl << endl;
+                cout << "1: Cambiar Nombre" << endl;
+                cout << "2: Cambiar Lugar" << endl;
+                cout << "3: Cambiar las Victorias" << endl;
+                cout << "4: Cambiar las Derrotas" << endl;
+                cout << "5: Cambiar los Hits" << endl;
+                cout << "6: Cambiar los Rbi" << endl;
+                cout << "7: Cambiar los Errores" << endl;
+                cout << "10: Fin de la corrida" << endl << endl << endl;
+                cout << "Make your Choice: ";
+                cin >> Choice;
+                switch (Choice)
+                {
+                    case 1:
+                        camb_nom(who);
+                        break;
+                    case 2:
+                        camb_lug(who);
+                        break;
+                    case 3:
+                        camb_vic(who);
+                        break;
+                    case 4:
+                        camb_los(who);
+                        break;
+                    case 5:
+                        camb_hit(who);
+                        break;
+                    case 6:
+                        camb_rbi(who);
+                        break;
+                    case 7:
+                        camb_err(who);
+                        break;
+                    case 10:
+                        cout << "Good Bye..."<<endl;
+                    default: cout << "Opcion invalida" << endl;
+                        break;
+                }
+            }  while (Choice != 10);
+            
+            
+        }
+    }
+    if(!enco)
+    {
+        cout << "La palabra no se encuentra en la lista"<< endl;
+        salida << "La palabra no se encuentra en la lista"<< endl;
+    }
+}
+
+//////////////////////////////////////////////
+// Funcion en donde se elimina todo el equipo
+
+void Equipo::Eliminar(Equipo who[])
+{
+    string busqueda;
+    bool enco = false;
+    int n=0;
+    cout << "Favor ingresar el nombre que desea eliminar" << endl;
+    cin >> busqueda;
+    
+    for(int p=0; p < cant; p++)
+    {
+        if(who[p].getEquipo() == busqueda)
+        {
+            enco = true;
+            n=p;
+            
+            for(p=n;p < cant;p++)
+            {
+                who[p]=who[p+1];
+            }
+            cant--;
+            cout << "El equipo: " << busqueda  << " fue eliminado" << endl;
+            salida << "El equipo: " << busqueda  << " fue eliminado" << endl;
+        }
+    }
+    if(!enco)
+    {
+        cout << "La palabra no se encuentra en la lista"<< endl;
+        salida << "La palabra no se encuentra en la lista"<< endl;
+    }
+    
+}
+
+/*
+void resize(Equipo *& whon)
+{
+    SIZE+=20;
+    
+    Equipoptr resize_palabra = new Equipo[SIZE];
+    for(int i = 0; i < cant; i++)
+        resize_palabra[i] = whon[i]; 
+ 
+    whonew = who;
+ }
+ */
+
+int main()
+{
+    Equipo Var;
+    Equipo who[max];
+    entrada.open("equipos.txt");
+    salida.open("salida.txt");
+    
+    if (entrada.is_open()) {
+        cout << "\nArchivo 'equipos.txt' found!\n" <<endl;
+        Var.Entrada(who);
+    }
+    else
+    {
+        cout << "Archivo equipos.txt NO se encuentra \n"<< endl;
+    }
+    
+    
+    return 0;
+}
